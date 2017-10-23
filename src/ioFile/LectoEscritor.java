@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import java.util.Scanner;
 import nodo.Nodo;
 import nodo.NodoColoreado;
@@ -13,42 +12,41 @@ import nodo.NodoColoreado;
 public class LectoEscritor {
 
 	private int cantNodos;
-	private int cantAdyacencia;
+	private int cantAristas;
 	private int porcentajeAdyacencia;
 	private int gradoMax;
 	private int gradoMin;
 
-	public LinkedList<Nodo> leerArchivo(String path) throws FileNotFoundException {
+	public Nodo[] leerArchivo(String path) throws FileNotFoundException {
 
-		LinkedList<Nodo> listaDeNodos = new LinkedList<>();
 		Scanner sc = new Scanner(new FileReader(path));
 
 		this.cantNodos = sc.nextInt();
-		this.cantAdyacencia = sc.nextInt();
+		this.cantAristas = sc.nextInt();
 		this.porcentajeAdyacencia = sc.nextInt();
 		this.gradoMax = sc.nextInt();
 		this.gradoMin = sc.nextInt();
 
-		for (int i = 0; i < this.cantNodos; i++) {
-			listaDeNodos.add(new Nodo(sc.nextInt(), sc.nextInt()));
+		Nodo[] nodos = new Nodo[this.cantNodos];
 
-		}
+		for (int i = 0; i < nodos.length; i++)
+			nodos[i] = new Nodo(sc.nextInt(), sc.nextInt());
+
 		sc.close();
-		return listaDeNodos;
+		return nodos;
 	}
 
-	public void escribirArchivo(String path, int cantColores, LinkedList<NodoColoreado> listaNodosColoreados)
-			throws IOException {
+	public void escribirArchivo(String path, int cantColores, NodoColoreado[] nodosColoreados) throws IOException {
 		PrintWriter pw = new PrintWriter(new FileWriter(path));
 
-		String primeraLinea = this.cantNodos + " " + cantColores + " " + this.cantAdyacencia + " "
+		String primeraLinea = this.cantNodos + " " + cantColores + " " + this.cantAristas + " "
 				+ this.porcentajeAdyacencia + " " + this.gradoMax + " " + this.gradoMin;
 
 		pw.println(primeraLinea);
 
-		for (NodoColoreado nodoColoreado : listaNodosColoreados) {
-			pw.println(nodoColoreado.getNodo() + " " + nodoColoreado.getColor());
-		}
+		for (int i = 0; i < nodosColoreados.length; i++)
+			pw.println(nodosColoreados[i].getNodo() + " " + nodosColoreados[i].getColor());
+
 		pw.close();
 	}
 
@@ -56,8 +54,8 @@ public class LectoEscritor {
 		return this.cantNodos;
 	}
 
-	public int getCantAdyacencia() {
-		return this.cantAdyacencia;
+	public int getCantAristas() {
+		return this.cantAristas;
 	}
 
 	public int getPorcentajeAdyacencia() {
