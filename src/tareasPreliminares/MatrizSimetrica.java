@@ -1,6 +1,6 @@
 package tareasPreliminares;
 
-import nodo.Nodo;
+import nodo.Arista;
 
 public class MatrizSimetrica {
 
@@ -12,7 +12,7 @@ public class MatrizSimetrica {
 		this.vector = new boolean[this.orden];
 	}
 
-	public void generarMatrizSimetrica(Nodo[] listaNodos) {
+	public void generarMatrizSimetrica(Arista[] listaNodos) {
 
 		/*
 		 * Es -1, ya que los nodos son correlativos y consecutivos empezando en 1
