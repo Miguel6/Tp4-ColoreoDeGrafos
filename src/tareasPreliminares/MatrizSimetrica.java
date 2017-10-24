@@ -5,11 +5,13 @@ import nodo.Arista;
 public class MatrizSimetrica {
 
 	private boolean[] vector;
-	private int orden;
+	private int ordenMatriz;
+	private int tamVector;
 
-	public MatrizSimetrica(int tam) {
-		this.orden = (tam * (tam - 1)) / 2;
-		this.vector = new boolean[this.orden];
+	public MatrizSimetrica(int cantNodos) {
+		this.tamVector= (cantNodos * (cantNodos-1)) / 2;
+		this.vector = new boolean[this.tamVector];
+		this.ordenMatriz=(int) ((1+Math.sqrt((1+8*this.tamVector)))/2);
 	}
 
 	public void generarMatrizSimetrica(Arista[] listaNodos) {
@@ -34,9 +36,12 @@ public class MatrizSimetrica {
 		}
 
 	}
+	public boolean getValIJ(int i , int j) {
+		return this.vector[funcionPos(i, j)];
+	}
 
 	private int funcionPos(int i, int j) {
-		return i * this.orden + j - (i * i + 3 * i + 2) / 2;
+		return i * this.ordenMatriz + j - (i * i + 3 * i + 2) / 2;
 	}
 
 }
