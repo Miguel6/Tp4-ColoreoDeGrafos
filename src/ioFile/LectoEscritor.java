@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-import nodo.Nodo;
+import nodo.Arista;
 import nodo.NodoColoreado;
 
 public class LectoEscritor {
@@ -17,7 +17,7 @@ public class LectoEscritor {
 	private int gradoMax;
 	private int gradoMin;
 
-	public Nodo[] leerArchivo(String path) throws FileNotFoundException {
+	public Arista[] leerArchivo(String path) throws FileNotFoundException {
 
 		Scanner sc = new Scanner(new FileReader(path));
 
@@ -27,10 +27,10 @@ public class LectoEscritor {
 		this.gradoMax = sc.nextInt();
 		this.gradoMin = sc.nextInt();
 
-		Nodo[] nodos = new Nodo[this.cantNodos];
+		Arista[] nodos = new Arista[this.cantNodos];
 
 		for (int i = 0; i < nodos.length; i++)
-			nodos[i] = new Nodo(sc.nextInt(), sc.nextInt());
+			nodos[i] = new Arista(sc.nextInt(), sc.nextInt());
 
 		sc.close();
 		return nodos;
