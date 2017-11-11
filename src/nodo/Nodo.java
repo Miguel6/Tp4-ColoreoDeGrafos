@@ -1,12 +1,18 @@
 package nodo;
 
-import java.awt.Color;
-
-public class NodoColoreado {
+/**
+ * Clase nodo, toda la informacion necesaria del nodo:
+ *	Color y el valor del mismo
+ */
+public class Nodo {
 	private int nodo;
-	private Color color;
+	private int color;
 
-	public NodoColoreado(int nodo, Color color) {
+	public Nodo(int nodo) {
+		this.nodo=nodo;
+		this.color = 0;
+	}
+	public Nodo(int nodo, int color) {
 		this.nodo = nodo;
 		this.color = color;
 	}
@@ -15,7 +21,7 @@ public class NodoColoreado {
 		return nodo;
 	}
 
-	public Color getColor() {
+	public int getColor() {
 		return color;
 	}
 
