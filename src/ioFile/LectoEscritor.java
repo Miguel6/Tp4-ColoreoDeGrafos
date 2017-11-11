@@ -6,8 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-import nodo.Arista;
-import nodo.NodoColoreado;
+import nodo.Nodo;
+import tareasPreliminares.MatrizSimetrica;
 
 public class LectoEscritor {
 
@@ -17,26 +17,24 @@ public class LectoEscritor {
 	private int gradoMax;
 	private int gradoMin;
 
-	public Arista[] leerArchivo(String path) throws FileNotFoundException {
+	public MatrizSimetrica leerArchivo(String path) throws FileNotFoundException {
 
 		Scanner sc = new Scanner(new FileReader(path));
-
 		this.cantNodos = sc.nextInt();
 		this.cantAristas = sc.nextInt();
 		this.porcentajeAdyacencia = sc.nextInt();
 		this.gradoMax = sc.nextInt();
 		this.gradoMin = sc.nextInt();
+		MatrizSimetrica ms = new MatrizSimetrica(cantNodos);
 
-		Arista[] nodos = new Arista[this.cantNodos];
-
-		for (int i = 0; i < nodos.length; i++)
-			nodos[i] = new Arista(sc.nextInt(), sc.nextInt());
+		for (int i = 0; i < cantAristas; i++)
+			ms.setIJ(sc.nextInt(), sc.nextInt());
 
 		sc.close();
-		return nodos;
+		return ms;
 	}
 
-	public void escribirArchivo(String path, int cantColores, NodoColoreado[] nodosColoreados) throws IOException {
+	public void escribirArchivo(String path, int cantColores, Nodo[] nodosColoreados) throws IOException {
 		PrintWriter pw = new PrintWriter(new FileWriter(path));
 
 		String primeraLinea = this.cantNodos + " " + cantColores + " " + this.cantAristas + " "
