@@ -1,7 +1,12 @@
 package tareasPreliminares;
 
-import nodo.Arista;
-
+/**
+ * Clase encargada de manejar las aristas 
+ * como si se tratase de un vector en vez de 
+ * una matriz.
+ * 
+ * @author Los Tres Mosqueteros
+ */
 public class MatrizSimetrica {
 
 	private boolean[] vector;
@@ -12,16 +17,6 @@ public class MatrizSimetrica {
 		this.tamVector= (cantNodos * (cantNodos-1)) / 2;
 		this.vector = new boolean[this.tamVector];
 		this.ordenMatriz=(int) ((1+Math.sqrt((1+8*this.tamVector)))/2);
-	}
-
-	public void generarMatrizSimetrica(Arista[] listaNodos) {
-
-		/*
-		 * Es -1, ya que los nodos son correlativos y consecutivos empezando en 1
-		 */
-		for (int i = 0; i < listaNodos.length; i++) {
-			setIJ(listaNodos[i].getOrigen() - 1, listaNodos[i].getDestino() - 1);
-		}
 	}
 
 	public boolean[] getVector() {
