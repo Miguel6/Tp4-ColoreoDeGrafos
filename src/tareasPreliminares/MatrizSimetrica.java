@@ -32,11 +32,25 @@ public class MatrizSimetrica {
 
 	}
 	public boolean getValIJ(int i , int j) {
-		return this.vector[funcionPos(i, j)];
+		if (i > j) {
+			return this.vector[funcionPos(j, i)];
+		} else {
+			return this.vector[funcionPos(i, j)];
+		}
 	}
 
 	private int funcionPos(int i, int j) {
 		return i * this.ordenMatriz + j - (i * i + 3 * i + 2) / 2;
 	}
+	
+	/**
+	 * Imprime el vector en pantalla.
+	 */
+	public void mostrarVector() {
+		for (int i = 0; i < this.vector.length; i++) {
+			System.out.println("-->" + this.vector[i]);
+		}
+	}
+
 
 }
