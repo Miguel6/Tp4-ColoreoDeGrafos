@@ -39,15 +39,10 @@ public class GenerarGrafoProbXArista {
 		}
 	}
 
-	/**
-	 * Imprime el vector en pantalla.
-	 */
 	public void mostrarVector() {
-		for (int i = 0; i < this.ms.getVector().length; i++) {
-			System.out.println("-->" + this.ms.getVector()[i]);
-		}
+		this.ms.mostrarVector();
 	}
-
+	
 	/**
 	 * Funcion encargada de completar la matriz simetrica del Grafo
 	 */

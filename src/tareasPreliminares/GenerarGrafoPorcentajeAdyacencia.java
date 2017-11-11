@@ -24,11 +24,11 @@ public class GenerarGrafoPorcentajeAdyacencia {
 		/**
 		 * el +1 es para el redondeo
 		 */
-		int cantAristasAUsar = (int) (this.porcentajeAdyacencia/100) * cantAristasMaximas +1;
+		
+		int cantAristasAUsar = (int)(Math.round(this.porcentajeAdyacencia*cantAristasMaximas/100));
 		if(cantAristasAUsar<cantAristasMinimas) {
 			throw new PorcentajeDeAdyacenciaException("Porcentaje inferior al minimo necesario para conectar todo el grafo");
 		}
-		
 		ms = new MatrizSimetrica(this.cantNodos);
 		
 		for(int medio = 0; medio < this.cantNodos-1; medio++ ) {
@@ -40,5 +40,9 @@ public class GenerarGrafoPorcentajeAdyacencia {
 				this.ms.setIJ(fil, col);
 			}
 		}
+	}
+	
+	public void mostrarVector() {
+		this.ms.mostrarVector();
 	}
 }
