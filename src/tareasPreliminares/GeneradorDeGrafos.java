@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import exception.AristaException;
 import exception.GrafoException;
 import exception.PorcentajeDeAdyacenciaException;
+
 public class GeneradorDeGrafos {
 	private final int cantNodos;
 	private MatrizSimetrica ms;
@@ -75,10 +76,11 @@ public class GeneradorDeGrafos {
 	}
 
 	private void setADistancia(int cantidadVeces, int distancia) {
-		for(int i=0;i<cantidadVeces;i++) {
-			this.ms.setIJ(i, (i + distancia)%cantidadVeces);
+		for (int i = 0; i < cantidadVeces; i++) {
+			this.ms.setIJ(i, (i + distancia) % cantidadVeces);
 		}
 	}
+
 	public Grafo generarGrafoConGrado(int grado) throws GrafoException {
 		if (grado >= cantNodos || grado < 0)
 			throw new GrafoException(" grado invalido");
@@ -86,35 +88,36 @@ public class GeneradorDeGrafos {
 
 		if (this.cantNodos % 2 == 0) { // par
 			if (grado % 2 == 1) {
-				if(grado == 1 && this.cantNodos!=2) {
+				if (grado == 1 && this.cantNodos != 2) {
 					throw new GrafoException("Grado 1 imposible de hacer, no genera un UNICO grafo conexo");
 				}
-				for(int i=0;i<grado/2;i++) {
-					setADistancia(this.cantNodos, i+1);
+				for (int i = 0; i < grado / 2; i++) {
+					setADistancia(this.cantNodos, i + 1);
 				}
 				int saltoImpar = (cantNodos / 2);
 				for (int i = 0; i < cantNodos / 2; i++) {
 					this.ms.setIJ(i, i + saltoImpar);
 				}
-			} else {//HECHO
-				//grado par
-				for(int i=0;i<grado/2;i++) {
-					setADistancia(this.cantNodos, i+1);
+			} else {// HECHO
+				// grado par
+				for (int i = 0; i < grado / 2; i++) {
+					setADistancia(this.cantNodos, i + 1);
 				}
 			}
 		} else { // impar
-			//HECHO
+			// HECHO
 			if (grado % 2 == 1)
 				throw new GrafoException("Grado Impar con cantidad de nodos impar, imposible construir");
-			for(int i=0;i<grado/2;i++) {
-				setADistancia(this.cantNodos, i+1);
+			for (int i = 0; i < grado / 2; i++) {
+				setADistancia(this.cantNodos, i + 1);
 			}
 		}
 		return new Grafo(this.cantNodos, this.ms.getCantAristas(), CalculosDeMatriz.porcentajeAdyacencia(this.ms),
 				CalculosDeMatriz.grMax(this.ms), CalculosDeMatriz.grMin(this.ms), this.ms);
 	}
 
-	public Grafo generarGrafoRegularPorcentajeAdyacencia(double porcentajeAdyacencia) throws PorcentajeDeAdyacenciaException, GrafoException {
+	public Grafo generarGrafoRegularPorcentajeAdyacencia(double porcentajeAdyacencia)
+			throws PorcentajeDeAdyacenciaException, GrafoException {
 
 		if (porcentajeAdyacencia < 0 || porcentajeAdyacencia > 100) {
 			throw new PorcentajeDeAdyacenciaException("Porcentaje fuera del rango 0-100");
@@ -122,34 +125,36 @@ public class GeneradorDeGrafos {
 
 		int cantAristasMaximas = (this.cantNodos * this.cantNodos - this.cantNodos) / 2;
 		int cantAristasAUsar = (int) (Math.round(porcentajeAdyacencia * cantAristasMaximas / 100));
-		int grado = (int)((cantAristasAUsar*2)/this.cantNodos);
+		int grado = (int) ((cantAristasAUsar * 2) / this.cantNodos);
 
 		return generarGrafoConGrado(grado);
 	}
-	
+
 	public Grafo generarGrafoNPartito(int k) throws GrafoException {
 		if (this.cantNodos < k)
 			throw new GrafoException("K menor a la cantidad de nodos");
 
-		LinkedList<boolean[]> conjuntos = new LinkedList<boolean[]>();
+		this.ms = new MatrizSimetrica(this.cantNodos);
+		int cantNodosPorConj = (int) (this.cantNodos / k);
+		int nodosSobrantes = this.cantNodos % k;
 
-		int cantNodosPorConjunto = (int) (k/this.cantNodos);
-		int resto = k%this.cantNodos;
-		for(boolean[] conjunto : conjuntos) {
-			if(resto>0) {
-				conjunto = new boolean[cantNodosPorConjunto-1];
-				resto--;
-			}else {
-				conjunto = new boolean[cantNodosPorConjunto];
+		for (int i = 0; i < k; i++) {
+
+			int cantNodosActual = cantNodosPorConj;
+			if (nodosSobrantes > 0) {
+				cantNodosActual++;
+				nodosSobrantes--;
 			}
-		}
-		for(boolean[] conjunto : conjuntos) {
+			///Cantidad de nodos actual se calcula bien
+			for (int j = 0; j < cantNodosActual; j++) {
+				for (int m = cantNodosActual * (i + 1); m < this.cantNodos; m++) {
+					this.ms.setIJ(j, m);
+				}
+			}
 			
-		this.ms = new MatrizSimetrica(cantNodos);
-		int cantTotalAristas = ((this.cantNodos*this.cantNodos)*(k-1))/(2*k);
-		System.out.println(cantTotalAristas);
-		
-		return new Grafo(this.cantNodos, cantTotalAristas, CalculosDeMatriz.porcentajeAdyacencia(this.ms), CalculosDeMatriz.grMax(this.ms),CalculosDeMatriz.grMin(this.ms),this.ms);
+		}
+		System.out.println(((this.cantNodos * this.cantNodos) * (k - 1)) / (2 * k));
+		return new Grafo(this.cantNodos, this.ms.getCantAristas(), CalculosDeMatriz.porcentajeAdyacencia(this.ms),
+				CalculosDeMatriz.grMax(this.ms), CalculosDeMatriz.grMin(this.ms), this.ms);
 	}
-
 }
