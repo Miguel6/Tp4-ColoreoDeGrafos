@@ -16,10 +16,12 @@ public class App {
 		GeneradorDeGrafos gdg = new GeneradorDeGrafos(600);
 		LectoEscritor.escribirArchivoGrafo("Grafo 20-Partito.in", gdg.generarGrafoNPartito(20));
 		LectoEscritor.escribirArchivoGrafo("Grafo con grado 50.in", gdg.generarGrafoConGrado(50));
-		LectoEscritor.escribirArchivoGrafo("Grafo con 40Porciento adyacencia.in", gdg.GenerarGrafoPorcentajeAdyacencia(0.4));
-		LectoEscritor.escribirArchivoGrafo("Grafo con 60Porciento adyacencia.in", gdg.GenerarGrafoPorcentajeAdyacencia(0.6));
-		LectoEscritor.escribirArchivoGrafo("Grafo con 90Porciento adyacencia.in", gdg.GenerarGrafoPorcentajeAdyacencia(0.9));
+		LectoEscritor.escribirArchivoGrafo("Grafo con 40Porciento adyacencia.in", gdg.GenerarGrafoPorcentajeAdyacencia(40));
+		LectoEscritor.escribirArchivoGrafo("Grafo con 60Porciento adyacencia.in", gdg.GenerarGrafoPorcentajeAdyacencia(60));
+		LectoEscritor.escribirArchivoGrafo("Grafo con 90Porciento adyacencia.in", gdg.GenerarGrafoPorcentajeAdyacencia(90));
 		LectoEscritor.escribirArchivoGrafo("Grafo 0,2Prob de Arista.in", gdg.GenerarGrafoProbXArista(0.2));
-		LectoEscritor.escribirArchivoGrafo("Grafo 0,8Prob de Arista.in", gdg.GenerarGrafoProbXArista(0.8));		
+		LectoEscritor.escribirArchivoGrafo("Grafo 0,8Prob de Arista.in", gdg.GenerarGrafoProbXArista(0.8));	
+		
+		
 	}
 }

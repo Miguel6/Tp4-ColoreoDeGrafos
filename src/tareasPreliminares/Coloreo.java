@@ -23,13 +23,13 @@ public abstract class Coloreo {
 		for (int i = 0; i < nodos.length; i++) { // recorre los nodos del vector para colorearlos
 			nodos[i] = new Nodo(i);
 			for (int j = 0; j < i; j++) { // recorre los nodos ya coloreados
-				System.out.println(i + "," + j + " ----> " + grafo.getMs().getValIJ(i, j)); // -------------------------->
+				// System.out.println(i + "," + j + " ----> " + grafo.getMs().getValIJ(i, j)); // -------------------------->
 				if (grafo.getMs().getValIJ(i, j)) { // si son adyacentes descarta el color
 					coloresProhibidos.add(nodos[j].getColor());
 				}
 			}
 			// recorre lista de colores prohibidos
-			System.out.println("colo en uso : " + coloresEnUso.size()); // --------------------------------------->
+			//System.out.println("colo en uso : " + coloresEnUso.size()); // --------------------------------------->
 			for (int k = 0; (nodos[i].getColor() == 0) && (k < coloresEnUso.size()); k++) {
 				if (!coloresProhibidos.contains(k + 1)) {
 					nodos[i].setColor(k + 1);
@@ -76,7 +76,7 @@ public abstract class Coloreo {
 
 		while (!nodosSinColor.isEmpty()) {	//cada iteracion va a tener un color distinto
 			color++;
-			System.out.println(nodosSinColor.size());	//	------------------------------------------------------------->
+			//System.out.println(nodosSinColor.size());	//	------------------------------------------------------------->
 			
 			/**se pintan todos los nodos que no son adyacentes entre si con el mismo color,
 			 * se recorre desde el nodo con mayor grado hacia el de menor grado 

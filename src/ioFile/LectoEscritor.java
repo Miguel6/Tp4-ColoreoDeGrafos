@@ -34,8 +34,8 @@ public abstract class LectoEscritor {
 	public static void escribirArchivoGrafo(String path, Grafo gr) throws IOException {
 		PrintWriter pw = new PrintWriter(new FileWriter(path));
 		
-		String primeraLinea = gr.getCantNodos() + " " + gr.getCantAristas() + " " + gr.getPorcentajeAdy() + " "
-				+ gr.getGrMax() + " " + gr.getGrMin();
+		String primeraLinea = gr.getCantNodos() + " " + gr.getCantAristas() + " "
+				+ String.format("%.2f", gr.getPorcentajeAdy()) + " " + gr.getGrMax() + " " + gr.getGrMin();
 		
 		pw.println(primeraLinea);
 		
@@ -52,7 +52,7 @@ public abstract class LectoEscritor {
 		PrintWriter pw = new PrintWriter(new FileWriter(path));
 
 		String primeraLinea = gr.getCantNodos() + " " + sol.getCantidadColores() + " " + gr.getCantAristas() + " "
-				+ gr.getPorcentajeAdy() + " " + gr.getGrMax() + " " + gr.getGrMin();
+				+ String.format("%.2f", gr.getPorcentajeAdy()) + " " + gr.getGrMax() + " " + gr.getGrMin();
 
 		pw.println(primeraLinea);
 
