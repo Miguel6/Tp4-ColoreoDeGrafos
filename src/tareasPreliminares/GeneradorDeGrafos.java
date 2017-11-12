@@ -87,8 +87,12 @@ public class GeneradorDeGrafos {
 				if(grado == 1 && this.cantNodos!=2) {
 					throw new GrafoException("Grado 1 imposible de hacer, no genera un UNICO grafo conexo");
 				}
-				for(int i=0;i<grado;i++) {
+				for(int i=0;i<grado/2;i++) {
 					setADistancia(this.cantNodos, i+1);
+				}
+				int saltoImpar = (cantNodos / 2);
+				for (int i = 0; i < cantNodos / 2; i++) {
+					this.ms.setIJ(i, i + saltoImpar);
 				}
 			} else {//HECHO
 				//grado par
@@ -103,9 +107,22 @@ public class GeneradorDeGrafos {
 			for(int i=0;i<grado/2;i++) {
 				setADistancia(this.cantNodos, i+1);
 			}
-
 		}
 		return new Grafo(this.cantNodos, this.ms.getCantAristas(), CalculosDeMatriz.porcentajeAdyacencia(this.ms),
 				CalculosDeMatriz.grMax(this.ms), CalculosDeMatriz.grMin(this.ms), this.ms);
 	}
+
+	public Grafo generarGrafoRegularPorcentajeAdyacencia(double porcentajeAdyacencia) throws PorcentajeDeAdyacenciaException, GrafoException {
+
+		if (porcentajeAdyacencia < 0 || porcentajeAdyacencia > 100) {
+			throw new PorcentajeDeAdyacenciaException("Porcentaje fuera del rango 0-100");
+		}
+
+		int cantAristasMaximas = (this.cantNodos * this.cantNodos - this.cantNodos) / 2;
+		int cantAristasAUsar = (int) (Math.round(porcentajeAdyacencia * cantAristasMaximas / 100));
+		int grado = (int)((cantAristasAUsar*2)/this.cantNodos);
+
+		return generarGrafoConGrado(grado);
+	}
+
 }
