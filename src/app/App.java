@@ -4,13 +4,18 @@ import java.io.IOException;
 
 import exception.AristaException;
 import exception.GrafoException;
+<<<<<<< Updated upstream
 import nodo.Nodo;
 import tareasPreliminares.Coloreo;
+=======
+import exception.PorcentajeDeAdyacenciaException;
+>>>>>>> Stashed changes
 import tareasPreliminares.GeneradorDeGrafos;
 import tareasPreliminares.Grafo;
 
 public class App {
 
+<<<<<<< Updated upstream
 	public static void main(String[] args) throws IOException, AristaException, GrafoException {
 		
 		GeneradorDeGrafos gg = new GeneradorDeGrafos(5);
@@ -35,6 +40,12 @@ public class App {
 //		for (Integer key : cai.getMapaNodos().keySet()) {
 //			System.out.println(key);
 //		}
+=======
+	public static void main(String[] args) throws IOException, AristaException, GrafoException, PorcentajeDeAdyacenciaException {
+		GeneradorDeGrafos gdg = new GeneradorDeGrafos(7);
+		Grafo g = gdg.generarGrafoNPartito(4);
+		g.mostrarMatriz();
+>>>>>>> Stashed changes
 		
 	}
 }

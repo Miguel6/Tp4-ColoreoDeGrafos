@@ -1,5 +1,7 @@
 package tareasPreliminares;
 
+import java.util.LinkedList;
+
 import exception.AristaException;
 import exception.GrafoException;
 import exception.PorcentajeDeAdyacenciaException;
@@ -123,6 +125,31 @@ public class GeneradorDeGrafos {
 		int grado = (int)((cantAristasAUsar*2)/this.cantNodos);
 
 		return generarGrafoConGrado(grado);
+	}
+	
+	public Grafo generarGrafoNPartito(int k) throws GrafoException {
+		if (this.cantNodos < k)
+			throw new GrafoException("K menor a la cantidad de nodos");
+
+		LinkedList<boolean[]> conjuntos = new LinkedList<boolean[]>();
+
+		int cantNodosPorConjunto = (int) (k/this.cantNodos);
+		int resto = k%this.cantNodos;
+		for(boolean[] conjunto : conjuntos) {
+			if(resto>0) {
+				conjunto = new boolean[cantNodosPorConjunto-1];
+				resto--;
+			}else {
+				conjunto = new boolean[cantNodosPorConjunto];
+			}
+		}
+		for(boolean[] conjunto : conjuntos) {
+			
+		this.ms = new MatrizSimetrica(cantNodos);
+		int cantTotalAristas = ((this.cantNodos*this.cantNodos)*(k-1))/(2*k);
+		System.out.println(cantTotalAristas);
+		
+		return new Grafo(this.cantNodos, cantTotalAristas, CalculosDeMatriz.porcentajeAdyacencia(this.ms), CalculosDeMatriz.grMax(this.ms),CalculosDeMatriz.grMin(this.ms),this.ms);
 	}
 
 }
