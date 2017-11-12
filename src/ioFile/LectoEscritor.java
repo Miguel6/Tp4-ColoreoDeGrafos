@@ -7,64 +7,58 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import nodo.Nodo;
+import tareasPreliminares.Grafo;
 import tareasPreliminares.MatrizSimetrica;
+import tareasPreliminares.SolColoreo;
 
-public class LectoEscritor {
+public abstract class LectoEscritor {
 
-	private int cantNodos;
-	private int cantAristas;
-	private int porcentajeAdyacencia;
-	private int gradoMax;
-	private int gradoMin;
-
-	public MatrizSimetrica leerArchivo(String path) throws FileNotFoundException {
+	public static Grafo leerArchivoGrafo(String path) throws FileNotFoundException {
 
 		Scanner sc = new Scanner(new FileReader(path));
-		this.cantNodos = sc.nextInt();
-		this.cantAristas = sc.nextInt();
-		this.porcentajeAdyacencia = sc.nextInt();
-		this.gradoMax = sc.nextInt();
-		this.gradoMin = sc.nextInt();
-		MatrizSimetrica ms = new MatrizSimetrica(cantNodos);
+		int cantNodos = sc.nextInt();
+		int cantAristas = sc.nextInt();
+		double porcentajeAdyacencia = sc.nextDouble();
+		int gradoMax = sc.nextInt();
+		int gradoMin = sc.nextInt();
+		Grafo gr = new Grafo(cantNodos, cantAristas, porcentajeAdyacencia, gradoMax, gradoMin, new MatrizSimetrica(cantNodos));
 
-		for (int i = 0; i < cantAristas; i++)
-			ms.setIJ(sc.nextInt(), sc.nextInt());
-
+		for (int i = 0; i < cantAristas; i++) {
+			gr.getMs().setIJ(sc.nextInt(), sc.nextInt());
+		}
 		sc.close();
-		return ms;
+		return gr;
 	}
 
-	public void escribirArchivo(String path, int cantColores, Nodo[] nodosColoreados) throws IOException {
+
+	public static void escribirArchivoGrafo(String path, Grafo gr) throws IOException {
 		PrintWriter pw = new PrintWriter(new FileWriter(path));
-
-		String primeraLinea = this.cantNodos + " " + cantColores + " " + this.cantAristas + " "
-				+ this.porcentajeAdyacencia + " " + this.gradoMax + " " + this.gradoMin;
-
+		
+		String primeraLinea = gr.getCantNodos() + " " + gr.getCantAristas() + " " + gr.getPorcentajeAdy() + " "
+				+ gr.getGrMax() + " " + gr.getGrMin();
+		
 		pw.println(primeraLinea);
-
-		for (int i = 0; i < nodosColoreados.length; i++)
-			pw.println(nodosColoreados[i].getNodo() + " " + nodosColoreados[i].getColor());
-
+		
+		for(int i = 1 ; i < gr.getCantNodos() ; i++) {
+			for(int j = 0 ; j < i ; j++) {
+				pw.println(i + " " + j);
+			}
+		}
 		pw.close();
 	}
 
-	public int getCantNodos() {
-		return this.cantNodos;
-	}
 
-	public int getCantAristas() {
-		return this.cantAristas;
-	}
+	public static void escribirArchivoColoreo(String path, SolColoreo sol, Grafo gr) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(path));
 
-	public int getPorcentajeAdyacencia() {
-		return this.porcentajeAdyacencia;
-	}
+		String primeraLinea = gr.getCantNodos() + " " + sol.getCantidadColores() + " " + gr.getCantAristas() + " "
+				+ gr.getPorcentajeAdy() + " " + gr.getGrMax() + " " + gr.getGrMin();
 
-	public int getGradoMax() {
-		return this.gradoMax;
-	}
+		pw.println(primeraLinea);
 
-	public int getGradoMin() {
-		return this.gradoMin;
+		for (int i = 0; i < sol.getNodos().length; i++) {
+			pw.println(sol.getNodos()[i].getNodo() + " " + sol.getNodos()[i].getColor());
+		}
+		pw.close();
 	}
 }
