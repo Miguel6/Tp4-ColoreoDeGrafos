@@ -42,8 +42,10 @@ public class Grafo {
 		return ms;
 	}
 	public void mostrarMatriz() {
-		for(int i=0;i<this.ms.getVector().length;i++) {
-			System.out.println(this.ms.getVector()[i]);
+		for(int i = 1 ; i < this.cantNodos ; i++) {
+			for(int  j = 0 ; j < i ; j++) {
+				System.out.println("Nodos:	(" + i + " , " + j + ")		--->	" + this.ms.getValIJ(i, j));
+			}
 		}
 	}
 }

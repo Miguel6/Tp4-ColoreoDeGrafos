@@ -2,19 +2,26 @@ package app;
 
 import java.io.IOException;
 
-import tareasPreliminares.AristaException;
-import tareasPreliminares.GenerarGrafo;
+import exception.AristaException;
+import exception.GrafoException;
+import nodo.Nodo;
+import tareasPreliminares.Coloreo;
+import tareasPreliminares.GeneradorDeGrafos;
+import tareasPreliminares.Grafo;
 
 public class App {
 
-	public static void main(String[] args) throws IOException, AristaException {
+	public static void main(String[] args) throws IOException, AristaException, GrafoException {
 		
-		GenerarGrafo gg = new GenerarGrafo(5);
-		gg.generarAristas(0.1);
-		gg.mostrarVector();
+		GeneradorDeGrafos gg = new GeneradorDeGrafos(5);
+		Grafo gPA = gg.GenerarGrafoProbXArista(0.1);
+		gPA.mostrarMatriz();
 		System.out.println("----COMPLETANDO----");
-		gg.completarGrafo();
-		gg.mostrarVector();
+		System.out.println(Coloreo.welshPowell(gPA));
+		System.out.println("termine");
+
+//		gg.completarGrafo();
+//		gPA.mostrarMatriz();
 //		LinkedList<Arista> listaAristas = new LinkedList<>();
 //		listaAristas.add(new Arista(1,2));
 //		listaAristas.add(new Arista(1,5));
