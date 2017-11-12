@@ -17,6 +17,7 @@ public class Nodo implements Comparable{
 	public Nodo(int nodo, int color) {
 		this.nodo = nodo;
 		this.color = color;
+		this.grado = 0;
 	}
 
 	public int getNodo() {

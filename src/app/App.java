@@ -14,10 +14,11 @@ public class App {
 	public static void main(String[] args) throws IOException, AristaException, GrafoException {
 		
 		GeneradorDeGrafos gg = new GeneradorDeGrafos(5);
-		Grafo gPA = gg.GenerarGrafoProbXArista(0.9);
+		Grafo gPA = gg.GenerarGrafoProbXArista(0.1);
 		gPA.mostrarMatriz();
 		System.out.println("----COMPLETANDO----");
-		System.out.println(Coloreo.secuencial(gPA));
+		System.out.println(Coloreo.welshPowell(gPA));
+		System.out.println("termine");
 
 //		gg.completarGrafo();
 //		gPA.mostrarMatriz();
