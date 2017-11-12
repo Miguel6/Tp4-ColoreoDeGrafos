@@ -137,7 +137,7 @@ public class GeneradorDeGrafos {
 		this.ms = new MatrizSimetrica(this.cantNodos);
 		int cantNodosPorConj = (int) (this.cantNodos / k);
 		int nodosSobrantes = this.cantNodos % k;
-
+		int offset = 0;
 		for (int i = 0; i < k; i++) {
 
 			int cantNodosActual = cantNodosPorConj;
@@ -145,13 +145,18 @@ public class GeneradorDeGrafos {
 				cantNodosActual++;
 				nodosSobrantes--;
 			}
+			offset+=cantNodosActual;
 			///Cantidad de nodos actual se calcula bien
 			for (int j = 0; j < cantNodosActual; j++) {
-				for (int m = cantNodosActual * (i + 1); m < this.cantNodos; m++) {
-					this.ms.setIJ(j, m);
+				/*
+				 * m es de donde empieza a enlazar
+				 */
+				for (int m = offset; m < this.cantNodos; m++) {
+					System.out.println(offset-cantNodosActual+j + " " + m);
+					this.ms.setIJ(offset-cantNodosActual+j, m);
+				
 				}
 			}
-			
 		}
 		System.out.println(((this.cantNodos * this.cantNodos) * (k - 1)) / (2 * k));
 		return new Grafo(this.cantNodos, this.ms.getCantAristas(), CalculosDeMatriz.porcentajeAdyacencia(this.ms),
